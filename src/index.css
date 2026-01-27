@@ -226,6 +226,73 @@
   }
 }
 
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes heart-beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
@@ -246,6 +313,32 @@
   animation: breathe 6s ease-in-out infinite;
 }
 
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-gentle-bounce {
+  animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+.animate-sway {
+  animation: sway 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, hsl(var(--lavender-light) / 0.3), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-heart-beat {
+  animation: heart-beat 2s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
 .animation-delay-200 {
   animation-delay: 200ms;
 }
@@ -264,4 +357,43 @@
 
 .animation-delay-1000 {
   animation-delay: 1000ms;
+}
+
+.animation-delay-1500 {
+  animation-delay: 1500ms;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Smooth scrolling for all devices */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Better text rendering on mobile */
+@media (max-width: 640px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  
+  p {
+    text-wrap: pretty;
+  }
 }

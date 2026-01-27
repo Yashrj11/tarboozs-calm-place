@@ -25,7 +25,7 @@ const IdentitySection = () => {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     if (sectionRef.current) {
@@ -38,15 +38,15 @@ const IdentitySection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen py-24 px-6 flex items-center bg-background"
+      className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-background"
     >
       <div className="max-w-6xl mx-auto w-full">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           {/* Illustration */}
-          <div className="relative flex justify-center order-2 md:order-1">
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
+          <div className="relative flex justify-center order-2 lg:order-1">
+            <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
               {/* Background glow */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-lavender-light/40 to-blush-light/40 blur-3xl" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-lavender-light/40 to-blush-light/40 blur-3xl animate-pulse-soft" />
               
               {/* Decorative elements */}
               <svg viewBox="0 0 400 400" className="w-full h-full relative z-10">
@@ -55,6 +55,7 @@ const IdentitySection = () => {
                   d="M50,300 L130,180 L170,240 L200,150 L250,220 L350,300 Z"
                   fill="hsl(270 30% 75%)"
                   opacity="0.6"
+                  className="animate-breathe"
                 />
                 <path
                   d="M80,300 L150,200 L200,260 L280,180 L320,300 Z"
@@ -71,8 +72,8 @@ const IdentitySection = () => {
                   className="animate-pulse-soft"
                 />
                 
-                {/* Coffee cup */}
-                <g transform="translate(100, 240)">
+                {/* Coffee cup with gentle sway */}
+                <g transform="translate(100, 240)" className="animate-sway" style={{ transformOrigin: 'center bottom' }}>
                   <ellipse cx="35" cy="45" rx="30" ry="8" fill="hsl(30 20% 60%)" opacity="0.5" />
                   <path
                     d="M10,10 L15,45 L55,45 L60,10 Z"
@@ -86,14 +87,14 @@ const IdentitySection = () => {
                     stroke="hsl(30 20% 70%)"
                     strokeWidth="2"
                   />
-                  {/* Steam */}
+                  {/* Steam with animation */}
                   <path
                     d="M25,5 Q30,-5 25,-15 M35,5 Q40,-8 35,-18 M45,5 Q50,-5 45,-15"
                     fill="none"
                     stroke="hsl(270 30% 75%)"
                     strokeWidth="1.5"
                     opacity="0.5"
-                    className="animate-breathe"
+                    className="animate-float-slow"
                   />
                 </g>
                 
@@ -104,12 +105,13 @@ const IdentitySection = () => {
                   <line x1="30" y1="8" x2="30" y2="32" stroke="hsl(330 30% 80%)" strokeWidth="1" />
                 </g>
                 
-                {/* Stars */}
+                {/* Twinkling Stars */}
                 {[
-                  { x: 80, y: 80 },
-                  { x: 150, y: 60 },
-                  { x: 350, y: 150 },
-                  { x: 320, y: 200 },
+                  { x: 80, y: 80, delay: 0 },
+                  { x: 150, y: 60, delay: 500 },
+                  { x: 350, y: 150, delay: 1000 },
+                  { x: 320, y: 200, delay: 1500 },
+                  { x: 60, y: 150, delay: 750 },
                 ].map((star, i) => (
                   <circle
                     key={i}
@@ -117,8 +119,8 @@ const IdentitySection = () => {
                     cy={star.y}
                     r="3"
                     fill="hsl(270 50% 80%)"
-                    className="animate-pulse-soft"
-                    style={{ animationDelay: `${i * 0.5}s` }}
+                    className="animate-twinkle"
+                    style={{ animationDelay: `${star.delay}ms` }}
                   />
                 ))}
               </svg>
@@ -126,16 +128,17 @@ const IdentitySection = () => {
           </div>
 
           {/* Text */}
-          <div className="space-y-6 order-1 md:order-2">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6 order-1 lg:order-2">
             {traits.map((trait, index) => (
               <p
                 key={index}
-                className={`font-serif text-xl md:text-2xl lg:text-3xl text-foreground/90 leading-relaxed transition-all duration-700 ${
+                className={`font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl text-foreground/90 leading-relaxed transition-all duration-700 ${
                   visibleLines.includes(index)
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-4'
                 }`}
               >
+                <span className="text-primary/60 mr-2 text-sm">✦</span>
                 {trait}
               </p>
             ))}
