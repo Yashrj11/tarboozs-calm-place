@@ -1,13 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import FloatingParticles from '@/components/FloatingParticles';
+import HeroSection from '@/components/sections/HeroSection';
+import IdentitySection from '@/components/sections/IdentitySection';
+import ShayariSection from '@/components/sections/ShayariSection';
+import DreamsSection from '@/components/sections/DreamsSection';
+import MusicSection from '@/components/sections/MusicSection';
+import GallerySection from '@/components/sections/GallerySection';
+import ClosingSection from '@/components/sections/ClosingSection';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="relative">
+      <FloatingParticles />
+      <HeroSection />
+      <IdentitySection />
+      <ShayariSection />
+      <DreamsSection />
+      <MusicSection />
+      <GallerySection />
+      <ClosingSection />
+    </main>
   );
 };
 
