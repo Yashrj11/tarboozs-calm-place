@@ -1,7 +1,9 @@
 import MoonIcon from '../MoonIcon';
 import MountainSilhouette from '../MountainSilhouette';
+
 const HeroSection = () => {
-  return <section className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-hero-gradient">
+  return (
+    <section className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-hero-gradient">
       {/* Decorative sparkles */}
       <div className="absolute top-1/4 left-1/4 w-1 h-1 rounded-full bg-lavender-light animate-twinkle" />
       <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 rounded-full bg-blush animate-twinkle animation-delay-400" />
@@ -15,33 +17,21 @@ const HeroSection = () => {
 
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl mx-auto">
-        <p className="text-muted-foreground text-xs sm:text-sm md:text-base tracking-widest uppercase mb-6 sm:mb-8 animate-fade-in-up opacity-0" style={{
-        animationDelay: '0.2s',
-        animationFillMode: 'forwards'
-      }}>
+        <p className="text-muted-foreground text-xs sm:text-sm md:text-base tracking-widest uppercase mb-6 sm:mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
           For someone who loves calm more than noise
         </p>
 
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-4 sm:mb-6 animate-fade-in-up opacity-0 leading-tight" style={{
-        animationDelay: '0.5s',
-        animationFillMode: 'forwards'
-      }}>
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-4 sm:mb-6 animate-fade-in-up opacity-0 leading-tight" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
           Happy Birthday{' '}
-          <span className="inline-block animate-gentle-bounce animation-delay-1000"></span>
+          <span className="inline-block animate-gentle-bounce animation-delay-1000">🌙</span>
         </h1>
 
-        <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light animate-fade-in-up opacity-0 px-2" style={{
-        animationDelay: '0.8s',
-        animationFillMode: 'forwards'
-      }}>
+        <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light animate-fade-in-up opacity-0 px-2" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
           Take your time. Nothing here needs rushing.
         </p>
 
         {/* Cute decorative element */}
-        <div className="mt-8 sm:mt-12 animate-fade-in-up opacity-0" style={{
-        animationDelay: '1.1s',
-        animationFillMode: 'forwards'
-      }}>
+        <div className="mt-8 sm:mt-12 animate-fade-in-up opacity-0" style={{ animationDelay: '1.1s', animationFillMode: 'forwards' }}>
           <div className="inline-flex items-center gap-2">
             <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent to-primary/40" />
             <span className="text-primary/60 animate-heart-beat">✿</span>
@@ -51,10 +41,7 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll indicator - hidden on very small screens */}
-      <div className="absolute bottom-24 sm:bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 hidden sm:flex" style={{
-      animationDelay: '1.4s',
-      animationFillMode: 'forwards'
-    }}>
+      <div className="absolute bottom-24 sm:bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 hidden sm:flex" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
         <div className="flex flex-col items-center gap-2">
           <span className="text-muted-foreground text-[10px] sm:text-xs tracking-widest">scroll gently</span>
           <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-primary/50 to-transparent animate-breathe" />
@@ -62,10 +49,7 @@ const HeroSection = () => {
       </div>
 
       {/* Mobile scroll hint */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 sm:hidden" style={{
-      animationDelay: '1.4s',
-      animationFillMode: 'forwards'
-    }}>
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 sm:hidden" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
         <div className="animate-gentle-bounce">
           <span className="text-muted-foreground text-xl">↓</span>
         </div>
@@ -73,6 +57,8 @@ const HeroSection = () => {
 
       {/* Mountain Silhouette */}
       <MountainSilhouette />
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
