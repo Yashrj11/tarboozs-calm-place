@@ -11,14 +11,14 @@ import {
 } from 'lucide-react';
 
 const dreams = [
-  { icon: GraduationCap, label: "Teacher", delay: 0 },
-  { icon: Code, label: "Learning to code", delay: 100 },
-  { icon: Guitar, label: "Guitar", delay: 200 },
-  { icon: Mountain, label: "Travel", delay: 300 },
-  { icon: BookOpen, label: "Reading", delay: 400 },
-  { icon: Sprout, label: "Growth", delay: 500 },
-  { icon: Brain, label: "Government exams", delay: 600 },
-  { icon: Video, label: "Editing & influence", delay: 700 },
+  { icon: GraduationCap, label: "Teaching, in her own way", delay: 0 },
+  { icon: Code, label: "Learning how things work", delay: 100 },
+  { icon: Guitar, label: "Music, when words feel heavy", delay: 200 },
+  { icon: Mountain, label: "Going where the mind breathes", delay: 300 },
+  { icon: BookOpen, label: "Stories that stay longer than people", delay: 400 },
+  { icon: Sprout, label: "Becoming, without rushing", delay: 500 },
+  { icon: Brain, label: "Trying, even when it's hard", delay: 600 },
+  { icon: Video, label: "Creating things that feel honest", delay: 700 },
 ];
 
 const DreamsSection = () => {
@@ -44,6 +44,9 @@ const DreamsSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Staggered layout - cards 2,3,4,5 (indices 2,3,4,5) are taller
+  const isTallerCard = (index: number) => index >= 2 && index <= 5;
+
   return (
     <section
       ref={sectionRef}
@@ -51,16 +54,18 @@ const DreamsSection = () => {
     >
       <div className="max-w-5xl mx-auto w-full">
         <h2 className="font-serif text-3xl md:text-4xl text-center text-foreground/80 mb-6">
-          The Path She's Walking
+          Things She Moves Toward
         </h2>
         <p className="text-center text-muted-foreground mb-16 max-w-md mx-auto">
-          Dreams unfolding at their own pace
+          Not destinations — just directions that feel right.
         </p>
 
-        {/* Dreams Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16">
+        {/* Dreams Grid - Staggered */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 mb-12">
           {dreams.map((dream, index) => {
             const Icon = dream.icon;
+            const isTall = isTallerCard(index);
+            
             return (
               <div
                 key={dream.label}
@@ -68,18 +73,15 @@ const DreamsSection = () => {
                   isVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-8'
-                }`}
+                } ${isTall ? 'md:-mt-3' : 'md:mt-3'}`}
                 style={{ transitionDelay: `${dream.delay}ms` }}
               >
-                <div className="relative bg-card-gradient rounded-2xl p-6 md:p-8 shadow-soft hover:shadow-card transition-all duration-300 border border-border/30 group-hover:border-primary/30 text-center">
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-lavender-light/0 to-blush/0 group-hover:from-lavender-light/20 group-hover:to-blush/10 transition-all duration-300" />
-                  
+                <div className={`relative bg-background rounded-2xl ${isTall ? 'p-7 md:p-9' : 'p-6 md:p-8'} border border-border/20 hover:border-border/40 transition-all duration-500 text-center`}>
                   <div className="relative z-10">
-                    <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 rounded-xl bg-accent/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+                    <div className="w-11 h-11 md:w-12 md:h-12 mx-auto mb-5 rounded-xl bg-accent/30 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-500 ease-out">
+                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary/80" />
                     </div>
-                    <p className="font-medium text-foreground/80 text-sm md:text-base">
+                    <p className="font-sans text-foreground/70 text-sm md:text-base leading-relaxed group-hover:text-foreground/85 transition-opacity duration-500">
                       {dream.label}
                     </p>
                   </div>
@@ -89,16 +91,14 @@ const DreamsSection = () => {
           })}
         </div>
 
-        {/* Motivational text */}
+        {/* Closing line */}
         <div
           className={`text-center transition-all duration-1000 delay-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <p className="font-serif text-xl md:text-2xl text-foreground/70 leading-relaxed max-w-xl mx-auto">
-            Not everything needs to happen fast.
-            <br />
-            <span className="text-primary">But everything here is worth continuing.</span>
+          <p className="text-muted-foreground text-sm md:text-base">
+            Some paths don't need announcing. They just need continuing.
           </p>
         </div>
       </div>
