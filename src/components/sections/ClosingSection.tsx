@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import MoonIcon from '../MoonIcon';
 
-interface DustParticle {
+interface FallingParticle {
   id: number;
   x: number;
-  y: number;
   size: number;
   duration: number;
   delay: number;
+  type: 'star' | 'moon' | 'sparkle';
+  rotation: number;
 }
 
 const ClosingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMessageOpen, setIsMessageOpen] = useState(false);
-  const [dustParticles, setDustParticles] = useState<DustParticle[]>([]);
+  const [fallingParticles, setFallingParticles] = useState<FallingParticle[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -38,29 +39,88 @@ const ClosingSection = () => {
   const handleOpenMessage = () => {
     setIsMessageOpen(true);
     
-    // Generate subtle dust particles
-    const particles: DustParticle[] = [];
-    for (let i = 0; i < 12; i++) {
+    // Generate falling stars, moons, and sparkles
+    const particles: FallingParticle[] = [];
+    const types: Array<'star' | 'moon' | 'sparkle'> = ['star', 'star', 'star', 'sparkle', 'sparkle', 'moon'];
+    
+    for (let i = 0; i < 40; i++) {
       particles.push({
         id: i,
-        x: 30 + Math.random() * 40,
-        y: 50 + Math.random() * 30,
-        size: Math.random() * 2 + 1,
-        duration: 6 + Math.random() * 4,
-        delay: Math.random() * 2,
+        x: Math.random() * 100,
+        size: Math.random() * 16 + 8,
+        duration: 4 + Math.random() * 6,
+        delay: Math.random() * 3,
+        type: types[Math.floor(Math.random() * types.length)],
+        rotation: Math.random() * 360,
       });
     }
-    setDustParticles(particles);
+    setFallingParticles(particles);
 
-    // Fade out particles after 7 seconds
+    // Keep particles falling for a while then fade out
     setTimeout(() => {
-      setDustParticles([]);
-    }, 7000);
+      setFallingParticles([]);
+    }, 12000);
   };
 
   const handleCloseMessage = () => {
     setIsMessageOpen(false);
-    setDustParticles([]);
+    setFallingParticles([]);
+  };
+
+  const renderParticle = (particle: FallingParticle) => {
+    if (particle.type === 'moon') {
+      return (
+        <div
+          key={particle.id}
+          className="absolute text-lavender-light/60 pointer-events-none"
+          style={{
+            left: `${particle.x}%`,
+            top: '-50px',
+            fontSize: `${particle.size}px`,
+            animation: `starFall ${particle.duration}s ease-in forwards`,
+            animationDelay: `${particle.delay}s`,
+            transform: `rotate(${particle.rotation}deg)`,
+          }}
+        >
+          🌙
+        </div>
+      );
+    }
+    
+    if (particle.type === 'sparkle') {
+      return (
+        <div
+          key={particle.id}
+          className="absolute text-blush/70 pointer-events-none"
+          style={{
+            left: `${particle.x}%`,
+            top: '-50px',
+            fontSize: `${particle.size * 0.8}px`,
+            animation: `starFall ${particle.duration}s ease-in forwards, twinkle 1s ease-in-out infinite`,
+            animationDelay: `${particle.delay}s`,
+          }}
+        >
+          ✧
+        </div>
+      );
+    }
+
+    return (
+      <div
+        key={particle.id}
+        className="absolute text-primary/50 pointer-events-none"
+        style={{
+          left: `${particle.x}%`,
+          top: '-50px',
+          fontSize: `${particle.size}px`,
+          animation: `starFall ${particle.duration}s ease-in forwards`,
+          animationDelay: `${particle.delay}s`,
+          transform: `rotate(${particle.rotation}deg)`,
+        }}
+      >
+        ✦
+      </div>
+    );
   };
 
   return (
@@ -177,71 +237,98 @@ const ClosingSection = () => {
       {/* Birthday Message Overlay */}
       {isMessageOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-hidden"
           onClick={handleCloseMessage}
         >
-          {/* Warm dimming overlay */}
+          {/* Warm dimming overlay with gradient */}
           <div 
-            className="absolute inset-0 bg-foreground/20"
+            className="absolute inset-0"
             style={{
-              animation: 'fadeIn 500ms ease-in forwards',
+              background: 'radial-gradient(ellipse at center, hsl(270 30% 10% / 0.7) 0%, hsl(270 30% 5% / 0.85) 100%)',
+              animation: 'fadeIn 600ms ease-in forwards',
             }}
           />
 
-          {/* Dust particles */}
-          {dustParticles.map((particle) => (
-            <div
-              key={particle.id}
-              className="absolute rounded-full bg-blush/30"
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: `${particle.size}px`,
-                height: `${particle.size}px`,
-                animation: `dustFloat ${particle.duration}s ease-out forwards`,
-                animationDelay: `${particle.delay}s`,
-                opacity: 0,
-              }}
-            />
-          ))}
+          {/* Falling stars, moons, and sparkles */}
+          {fallingParticles.map(renderParticle)}
 
           {/* Message card */}
           <div
-            className="relative max-w-xs sm:max-w-sm md:max-w-md bg-card/95 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-soft z-10"
+            className="relative max-w-sm sm:max-w-md md:max-w-lg bg-gradient-to-br from-card via-card to-secondary/20 rounded-3xl sm:rounded-[2rem] p-8 sm:p-10 md:p-12 shadow-glow z-10 border border-primary/10"
             style={{
-              animation: 'messageCardFadeIn 600ms ease-out forwards',
+              animation: 'messageCardFadeIn 800ms ease-out forwards',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Soft glow around card */}
+            {/* Outer glow */}
             <div 
-              className="absolute -inset-4 rounded-3xl sm:rounded-[2rem] opacity-0"
+              className="absolute -inset-6 sm:-inset-8 rounded-[2.5rem] sm:rounded-[3rem]"
               style={{
-                background: 'radial-gradient(ellipse at center, hsl(var(--lavender-light) / 0.15) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, hsl(var(--lavender-light) / 0.2) 0%, hsl(var(--blush) / 0.1) 40%, transparent 70%)',
                 animation: 'glowPulse 4s ease-in-out infinite',
-                animationDelay: '600ms',
+                animationDelay: '800ms',
               }}
             />
 
+            {/* Decorative corner stars */}
+            <span className="absolute top-4 left-4 text-primary/30 text-sm animate-twinkle">✦</span>
+            <span className="absolute top-4 right-4 text-blush/40 text-xs animate-twinkle animation-delay-400">✧</span>
+            <span className="absolute bottom-4 left-4 text-primary/25 text-xs animate-twinkle animation-delay-600">✧</span>
+            <span className="absolute bottom-4 right-4 text-lavender-light/30 text-sm animate-twinkle animation-delay-200">✦</span>
+
             {/* Message content */}
-            <div className="relative z-10 text-center sm:text-left">
-              <p className="font-sans text-sm sm:text-base md:text-lg text-foreground/80 leading-[1.8] sm:leading-[2] whitespace-pre-line">
-                {`if today is yours —
-
-drink the coffee while it's warm.
-look at the moon without naming it peace.
-
-rest, yes —
-but don't stop just to stay comfortable.
-
-the calm you're protecting
-was never meant to replace finishing.
-
-you don't owe the world noise.
-but you do owe yourself one complete thing.`}
+            <div className="relative z-10 text-center">
+              {/* Opening line */}
+              <p className="font-serif text-xl sm:text-2xl md:text-3xl text-primary mb-6 sm:mb-8 italic">
+                if today is yours —
               </p>
+
+              {/* Decorative divider */}
+              <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
+                <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                <span className="text-blush/50 text-xs">✧</span>
+                <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+              </div>
+
+              {/* Main message */}
+              <div className="space-y-5 sm:space-y-6 font-sans text-base sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
+                <p>
+                  drink the coffee while it's warm.<br />
+                  <span className="text-foreground/60">look at the moon without naming it peace.</span>
+                </p>
+
+                <p className="text-foreground/65">
+                  rest, yes —<br />
+                  but don't stop just to stay comfortable.
+                </p>
+
+                <p>
+                  <span className="text-foreground/60">the calm you're protecting</span><br />
+                  was never meant to replace finishing.
+                </p>
+
+                <p className="pt-2 sm:pt-4 text-primary/80 font-serif italic text-lg sm:text-xl md:text-2xl">
+                  you don't owe the world noise.<br />
+                  but you do owe yourself one complete thing.
+                </p>
+              </div>
+
+              {/* Closing decoration */}
+              <div className="mt-8 sm:mt-10 flex items-center justify-center gap-2">
+                <span className="text-primary/40 text-xs animate-twinkle">✦</span>
+                <span className="text-blush/50 text-sm animate-twinkle animation-delay-200">✧</span>
+                <span className="text-primary/40 text-xs animate-twinkle animation-delay-400">✦</span>
+              </div>
             </div>
           </div>
+
+          {/* Tap to close hint */}
+          <p 
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs text-foreground/30 tracking-widest"
+            style={{ animation: 'fadeIn 1s ease-in 1.5s forwards', opacity: 0 }}
+          >
+            tap anywhere to close
+          </p>
         </div>
       )}
 
@@ -254,7 +341,7 @@ but you do owe yourself one complete thing.`}
         @keyframes messageCardFadeIn {
           from { 
             opacity: 0; 
-            transform: scale(0.98) translateY(10px);
+            transform: scale(0.95) translateY(20px);
           }
           to { 
             opacity: 1; 
@@ -262,26 +349,26 @@ but you do owe yourself one complete thing.`}
           }
         }
         
-        @keyframes dustFloat {
+        @keyframes starFall {
           0% { 
             opacity: 0;
-            transform: translateY(0);
+            transform: translateY(0) rotate(0deg);
           }
           10% {
-            opacity: 0.3;
+            opacity: 1;
           }
-          90% {
-            opacity: 0.1;
+          70% {
+            opacity: 0.8;
           }
           100% { 
             opacity: 0;
-            transform: translateY(-60px);
+            transform: translateY(100vh) rotate(180deg);
           }
         }
         
         @keyframes glowPulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.5; }
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.7; }
         }
       `}</style>
     </section>
