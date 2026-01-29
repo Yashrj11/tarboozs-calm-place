@@ -40,20 +40,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator - hidden on very small screens */}
-      <div className="absolute bottom-24 sm:bottom-28 md:bottom-32 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 hidden sm:flex" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-muted-foreground text-[10px] sm:text-xs tracking-widest">scroll gently</span>
-          <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-primary/50 to-transparent animate-breathe" />
-        </div>
-      </div>
-
-      {/* Mobile scroll hint */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-fade-in-up opacity-0 sm:hidden" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
-        <div className="animate-gentle-bounce">
-          <span className="text-muted-foreground text-xl">↓</span>
-        </div>
-      </div>
 
       {/* Mountain Silhouette */}
       <MountainSilhouette />

@@ -3,32 +3,24 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const quotes = [
   {
-    text: "Some people bloom quietly —\nand still change the whole season.",
-    type: "reflection"
+    text: "She keeps tiny mornings in a jar:\ncoffee steam, a page, a star.\nWhen she opens it, she remembers she belongs.",
+    type: "opening"
   },
   {
-    text: "You don't need speed.\nYou need direction — and you already have it.",
-    type: "motivation"
+    text: "Within you, there is a stillness\nand a sanctuary to which you can retreat\nat any time and be yourself.",
+    type: "philosophy"
   },
   {
-    text: "Gentle doesn't mean weak.\nIt means controlled strength.",
+    text: "Stopping hurts less than failing —\nbut finishing is how you learn who you are.",
+    type: "growth"
+  },
+  {
+    text: "Gentleness isn't disappearing when things get hard.\nIt's staying — without becoming harsh.",
     type: "strength"
   },
   {
-    text: "धीरे-धीरे रहना सीखो,\nजल्दी में जिंदगी छूट जाती है।",
-    type: "shayari"
-  },
-  {
-    text: "The mountain doesn't rush to the sky.\nIt simply rises, day after day.",
-    type: "patience"
-  },
-  {
-    text: "Not all storms are meant to destroy —\nsome just clear the path ahead.",
-    type: "hope"
-  },
-  {
-    text: "खुद से मिलने का वक्त निकालो,\nवो रिश्ता सबसे खास है।",
-    type: "shayari"
+    text: "ਤੇਰੀਆਂ ਅੱਖਾਂ ਵਿੱਚ ਮੈਂ ਆਪਣੀ ਦੁਨੀਆ ਵਸਾਈ ਹੈ,\nਹਰ ਸਪਨਾ ਤੇਰੇ ਨਾਂ ਨਾਲ ਜਾਗਦਾ ਹੈ।",
+    type: "closing"
   },
 ];
 
