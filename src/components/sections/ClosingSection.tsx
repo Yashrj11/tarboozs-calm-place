@@ -129,18 +129,48 @@ const ClosingSection = () => {
           </p>
         </div>
 
-        {/* Hidden birthday button */}
+        {/* Special birthday button */}
         <div
-          className={`mt-12 sm:mt-16 transition-all duration-1000 delay-1200 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
+          className={`mt-16 sm:mt-20 md:mt-24 transition-all duration-1500 delay-1500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <button
-            onClick={handleOpenMessage}
-            className="text-[10px] sm:text-xs text-muted-foreground/40 hover:text-muted-foreground/60 transition-opacity duration-300 font-sans lowercase tracking-wide"
-          >
-            open this only if it's your day
-          </button>
+          <div className="relative inline-block group">
+            {/* Soft ambient glow behind button */}
+            <div 
+              className="absolute -inset-6 sm:-inset-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(var(--lavender-light) / 0.25) 0%, transparent 70%)',
+              }}
+            />
+            
+            {/* Decorative stars around button */}
+            <span className="absolute -top-4 -left-4 text-[8px] text-primary/30 animate-twinkle">✦</span>
+            <span className="absolute -top-3 -right-6 text-[6px] text-blush/40 animate-twinkle animation-delay-400">✦</span>
+            <span className="absolute -bottom-3 -left-6 text-[6px] text-primary/25 animate-twinkle animation-delay-800">✦</span>
+            
+            <button
+              onClick={handleOpenMessage}
+              className="relative px-6 py-3 sm:px-8 sm:py-4 rounded-full border border-primary/20 bg-card/50 backdrop-blur-sm group-hover:border-primary/40 group-hover:bg-card/70 transition-all duration-500 shadow-soft group-hover:shadow-glow"
+            >
+              {/* Inner glow on hover */}
+              <div 
+                className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: 'radial-gradient(ellipse at center, hsl(var(--blush) / 0.15) 0%, transparent 70%)',
+                }}
+              />
+              
+              <span className="relative font-serif text-sm sm:text-base text-foreground/60 group-hover:text-foreground/80 transition-colors duration-500 italic tracking-wide">
+                open this only if it's your day
+              </span>
+            </button>
+          </div>
+          
+          {/* Subtle hint text */}
+          <p className="mt-4 text-[9px] sm:text-[10px] text-muted-foreground/30 tracking-widest animate-breathe">
+            ✧ a quiet gift ✧
+          </p>
         </div>
       </div>
 
