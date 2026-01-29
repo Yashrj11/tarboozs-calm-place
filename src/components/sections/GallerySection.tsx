@@ -62,13 +62,6 @@ const GallerySection = () => {
           ))}
         </div>
 
-        {/* Add more prompt */}
-        <div className="mt-8 sm:mt-10 md:mt-12 text-center">
-          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-accent/50 text-muted-foreground text-xs sm:text-sm animate-pulse-soft">
-            <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>Add your own memories here</span>
-          </div>
-        </div>
       </div>
 
       {/* Lightbox */}
