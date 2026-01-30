@@ -66,11 +66,6 @@ const ClosingSection = () => {
       });
     }
     setFallingParticles(particles);
-
-    // Keep particles falling for a while then fade out
-    setTimeout(() => {
-      setFallingParticles([]);
-    }, 12000);
   };
 
   const handleCloseMessage = () => {
@@ -88,7 +83,7 @@ const ClosingSection = () => {
             left: `${particle.x}%`,
             top: '-50px',
             fontSize: `${particle.size}px`,
-            animation: `starFall ${particle.duration}s ease-in forwards`,
+            animation: `starFall ${particle.duration}s ease-in infinite`,
             animationDelay: `${particle.delay}s`,
             transform: `rotate(${particle.rotation}deg)`,
           }}
@@ -107,7 +102,7 @@ const ClosingSection = () => {
             left: `${particle.x}%`,
             top: '-50px',
             fontSize: `${particle.size * 0.8}px`,
-            animation: `starFall ${particle.duration}s ease-in forwards, twinkle 1s ease-in-out infinite`,
+            animation: `starFall ${particle.duration}s ease-in infinite, twinkle 1s ease-in-out infinite`,
             animationDelay: `${particle.delay}s`,
           }}
         >
@@ -124,7 +119,7 @@ const ClosingSection = () => {
           left: `${particle.x}%`,
           top: '-50px',
           fontSize: `${particle.size}px`,
-          animation: `starFall ${particle.duration}s ease-in forwards`,
+          animation: `starFall ${particle.duration}s ease-in infinite`,
           animationDelay: `${particle.delay}s`,
           transform: `rotate(${particle.rotation}deg)`,
         }}
@@ -363,12 +358,12 @@ const ClosingSection = () => {
         @keyframes starFall {
           0% { 
             opacity: 0;
-            transform: translateY(0) rotate(0deg);
+            transform: translateY(-50px) rotate(0deg);
           }
           10% {
             opacity: 1;
           }
-          70% {
+          90% {
             opacity: 0.8;
           }
           100% { 
