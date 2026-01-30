@@ -39,17 +39,28 @@ const ClosingSection = () => {
   const handleOpenMessage = () => {
     setIsMessageOpen(true);
     
-    // Generate falling stars, moons, and sparkles
+    // Generate falling stars, moons, and sparkles - more intense!
     const particles: FallingParticle[] = [];
-    const types: Array<'star' | 'moon' | 'sparkle'> = ['star', 'star', 'star', 'sparkle', 'sparkle', 'moon'];
+    const types: Array<'star' | 'moon' | 'sparkle'> = ['star', 'star', 'star', 'star', 'sparkle', 'sparkle', 'sparkle', 'moon', 'moon'];
     
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 80; i++) {
+      // Create varied sizes - some tiny, some large
+      const sizeCategory = Math.random();
+      let size: number;
+      if (sizeCategory < 0.3) {
+        size = Math.random() * 8 + 4; // tiny: 4-12px
+      } else if (sizeCategory < 0.7) {
+        size = Math.random() * 12 + 10; // medium: 10-22px
+      } else {
+        size = Math.random() * 16 + 18; // large: 18-34px
+      }
+      
       particles.push({
         id: i,
         x: Math.random() * 100,
-        size: Math.random() * 16 + 8,
-        duration: 4 + Math.random() * 6,
-        delay: Math.random() * 3,
+        size,
+        duration: 3 + Math.random() * 5,
+        delay: Math.random() * 4,
         type: types[Math.floor(Math.random() * types.length)],
         rotation: Math.random() * 360,
       });
