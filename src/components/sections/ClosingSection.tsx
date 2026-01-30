@@ -299,23 +299,27 @@ const ClosingSection = () => {
               {/* Main message */}
               <div className="space-y-5 sm:space-y-6 font-sans text-base sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
                 <p>
-                  drink the coffee while it's warm.<br />
-                  <span className="text-foreground/60">look at the moon without naming it peace.</span>
+                  drink the coffee while it's warm.
                 </p>
 
-                <p className="text-foreground/65">
-                  rest, yes —<br />
-                  but don't stop just to stay comfortable.
+                <p className="text-foreground/60">
+                  look at the moon without asking it for meaning.
                 </p>
 
                 <p>
-                  <span className="text-foreground/60">the calm you're protecting</span><br />
-                  was never meant to replace finishing.
+                  rest —<br />
+                  <span className="text-foreground/60">but don't stop just to stay comfortable.</span>
+                </p>
+
+                <p className="text-foreground/65">
+                  the calm you're guarding<br />
+                  was never meant to replace completion.
                 </p>
 
                 <p className="pt-2 sm:pt-4 text-primary/80 font-serif italic text-lg sm:text-xl md:text-2xl">
-                  you don't owe the world noise.<br />
-                  but you do owe yourself one complete thing.
+                  you don't owe the world performance.<br />
+                  but you do owe yourself<br />
+                  one honest finish.
                 </p>
               </div>
 
