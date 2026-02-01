@@ -10,6 +10,14 @@ import mountainView from '@/assets/gallery/mountain-view.png';
 import teachingKids from '@/assets/gallery/teaching-kids.png';
 import readingCozy from '@/assets/gallery/reading-cozy.png';
 
+// Secondary gallery images ("some more of me")
+import savingsMoment from '@/assets/gallery/savings-moment.png';
+import auroraNight from '@/assets/gallery/aurora-night.png';
+import dressedUp from '@/assets/gallery/dressed-up.png';
+import yogaStretch from '@/assets/gallery/yoga-stretch.png';
+import lakeDock from '@/assets/gallery/lake-dock.png';
+import streetArt from '@/assets/gallery/street-art.png';
+
 // Primary gallery items
 const primaryGalleryItems = [
   { id: 1, src: moonlightWindow, aspect: 'wide', alt: 'Moonlight by the window' },
@@ -20,18 +28,21 @@ const primaryGalleryItems = [
   { id: 6, src: readingCozy, aspect: 'wide', alt: 'Cozy reading' },
 ];
 
-// Secondary gallery items (placeholder for now - will be replaced when you upload more)
-const secondaryGalleryItems: typeof primaryGalleryItems = [];
+// Secondary gallery items ("some more of me")
+const secondaryGalleryItems = [
+  { id: 7, src: savingsMoment, aspect: 'square', alt: 'Savings moment' },
+  { id: 8, src: auroraNight, aspect: 'wide', alt: 'Aurora night' },
+  { id: 9, src: dressedUp, aspect: 'wide', alt: 'Dressed up' },
+  { id: 10, src: yogaStretch, aspect: 'wide', alt: 'Yoga stretch' },
+  { id: 11, src: lakeDock, aspect: 'wide', alt: 'Lake dock' },
+  { id: 12, src: streetArt, aspect: 'tall', alt: 'Street art' },
+];
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showSecondary, setShowSecondary] = useState(false);
 
-  const currentGallery = showSecondary && secondaryGalleryItems.length > 0 
-    ? secondaryGalleryItems 
-    : primaryGalleryItems;
-
-  const hasSecondaryImages = secondaryGalleryItems.length > 0;
+  const currentGallery = showSecondary ? secondaryGalleryItems : primaryGalleryItems;
 
   return (
     <section className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-background">
@@ -44,32 +55,18 @@ const GallerySection = () => {
         </p>
 
         {/* Toggle Button */}
-        {hasSecondaryImages && (
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-            <Button
-              variant="ghost"
-              onClick={() => setShowSecondary(!showSecondary)}
-              className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
-            >
-              <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
-              <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
-                {showSecondary ? 'back to moments' : 'some more of me'}
-              </span>
-            </Button>
-          </div>
-        )}
-
-        {/* Placeholder button when no secondary images yet */}
-        {!hasSecondaryImages && (
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-            <div className="px-4 py-2 rounded-full border border-border/20 bg-accent/10">
-              <span className="text-xs text-muted-foreground/60 flex items-center gap-2">
-                <Sparkles className="w-3 h-3" />
-                more photos coming soon
-              </span>
-            </div>
-          </div>
-        )}
+        <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
+          <Button
+            variant="ghost"
+            onClick={() => setShowSecondary(!showSecondary)}
+            className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
+          >
+            <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
+            <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
+              {showSecondary ? 'back to moments' : 'some more of me'}
+            </span>
+          </Button>
+        </div>
 
         {/* Masonry Grid */}
         <div className="columns-2 md:columns-3 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
