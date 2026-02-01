@@ -11,8 +11,13 @@ const primaryPlaylist = [
   { title: "Someday Faraway", artist: "Labit", src: "/audio/someday-faraway.mp3" },
 ];
 
-// Secondary playlist ("if you miss me") - placeholder for now
-const secondaryPlaylist: typeof primaryPlaylist = [];
+// Secondary playlist ("if you miss me")
+const secondaryPlaylist = [
+  { title: "Pyaar Ke Is Khel Mein", artist: "Kishore Kumar", src: "/audio/pyaar-ke-is-khel-mein.mp3" },
+  { title: "Main Tumhara", artist: "Dil Bechara", src: "/audio/main-tumhara.mp3" },
+  { title: "Tumse Hi Tumse", artist: "Anjaana Anjaani", src: "/audio/tumse-hi-tumse.mp3" },
+  { title: "Until I Found You", artist: "Stephen Sanchez", src: "/audio/until-i-found-you.mp3" },
+];
 
 const MusicSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,11 +27,8 @@ const MusicSection = () => {
   const [showSecondary, setShowSecondary] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const currentPlaylist = showSecondary && secondaryPlaylist.length > 0 
-    ? secondaryPlaylist 
-    : primaryPlaylist;
+  const currentPlaylist = showSecondary ? secondaryPlaylist : primaryPlaylist;
 
-  const hasSecondaryPlaylist = secondaryPlaylist.length > 0;
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -121,29 +123,18 @@ const MusicSection = () => {
         </p>
 
         {/* Toggle Button */}
-        {hasSecondaryPlaylist ? (
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-            <Button
-              variant="ghost"
-              onClick={() => setShowSecondary(!showSecondary)}
-              className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
-            >
-              <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
-              <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
-                {showSecondary ? 'back to evenings' : 'if you miss me'}
-              </span>
-            </Button>
-          </div>
-        ) : (
-          <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-            <div className="px-4 py-2 rounded-full border border-border/20 bg-accent/10">
-              <span className="text-xs text-muted-foreground/60 flex items-center gap-2">
-                <Sparkles className="w-3 h-3" />
-                more songs coming soon
-              </span>
-            </div>
-          </div>
-        )}
+        <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
+          <Button
+            variant="ghost"
+            onClick={() => setShowSecondary(!showSecondary)}
+            className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
+          >
+            <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
+            <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
+              {showSecondary ? 'back to evenings' : 'if you miss me'}
+            </span>
+          </Button>
+        </div>
 
         {/* Music Player */}
         <div className="bg-card-gradient rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-10 shadow-card border border-border/30 backdrop-blur-sm">
