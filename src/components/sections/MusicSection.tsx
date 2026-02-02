@@ -3,19 +3,19 @@ import { Play, Pause, SkipForward, SkipBack, Volume2, Sparkles } from 'lucide-re
 import { Button } from '@/components/ui/button';
 import MoonIcon from '../MoonIcon';
 
-// Primary playlist
+// Primary playlist (slow evenings)
 const primaryPlaylist = [
-  { title: "Aas Paas Hai Khuda", artist: "Anjaana Anjaani", src: "/audio/aas-paas-hai-khuda.mp3" },
   { title: "Blue", artist: "Yung Kai", src: "/audio/blue-yung-kai.mp3" },
   { title: "Kho Gaye Hum Kahan", artist: "Baar Baar Dekho", src: "/audio/kho-gaye-hum-kahan.mp3" },
   { title: "Someday Faraway", artist: "Labit", src: "/audio/someday-faraway.mp3" },
+  { title: "Aas Paas Hai Khuda", artist: "Anjaana Anjaani", src: "/audio/aas-paas-hai-khuda.mp3" },
 ];
 
-// Secondary playlist ("if you miss me")
+// Secondary playlist ("and if your nights feel incomplete")
 const secondaryPlaylist = [
-  { title: "Pyaar Ke Is Khel Mein", artist: "Kishore Kumar", src: "/audio/pyaar-ke-is-khel-mein.mp3" },
   { title: "Main Tumhara", artist: "Dil Bechara", src: "/audio/main-tumhara.mp3" },
   { title: "Tumse Hi Tumse", artist: "Anjaana Anjaani", src: "/audio/tumse-hi-tumse.mp3" },
+  { title: "Pyaar Ke Is Khel Mein", artist: "Kishore Kumar", src: "/audio/pyaar-ke-is-khel-mein.mp3" },
   { title: "Until I Found You", artist: "Stephen Sanchez", src: "/audio/until-i-found-you.mp3" },
 ];
 
@@ -122,19 +122,6 @@ const MusicSection = () => {
           For slow evenings
         </p>
 
-        {/* Toggle Button */}
-        <div className="flex justify-center mb-8 sm:mb-10 md:mb-12">
-          <Button
-            variant="ghost"
-            onClick={() => setShowSecondary(!showSecondary)}
-            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500"
-          >
-            <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
-            <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
-              {showSecondary ? 'back to evenings' : 'If your nights feel incomplete'}
-            </span>
-          </Button>
-        </div>
 
         {/* Music Player */}
         <div className="bg-card-gradient rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-10 shadow-card border border-border/30 backdrop-blur-sm">
@@ -167,11 +154,15 @@ const MusicSection = () => {
               className="relative h-2 sm:h-2.5 bg-accent rounded-full overflow-hidden cursor-pointer group"
               onClick={(e) => {
                 const audio = audioRef.current;
-                if (!audio || !duration) return;
+                if (!audio) return;
                 const rect = e.currentTarget.getBoundingClientRect();
                 const clickX = e.clientX - rect.left;
-                const percentage = clickX / rect.width;
-                audio.currentTime = percentage * duration;
+                const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+                const seekTime = percentage * (duration || audio.duration || 0);
+                if (seekTime > 0) {
+                  audio.currentTime = seekTime;
+                  setCurrentTime(seekTime);
+                }
               }}
             >
               <div 
@@ -180,7 +171,7 @@ const MusicSection = () => {
               />
               {/* Seek indicator */}
               <div 
-                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 style={{ left: `calc(${progress}% - 6px)` }}
               />
             </div>
@@ -228,6 +219,20 @@ const MusicSection = () => {
               <div className="w-14 sm:w-16 h-full bg-primary/50 rounded-full" />
             </div>
           </div>
+        </div>
+
+        {/* Toggle Button - Now below player, above playlist */}
+        <div className="flex justify-center my-6 sm:my-8">
+          <Button
+            variant="ghost"
+            onClick={() => setShowSecondary(!showSecondary)}
+            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500"
+          >
+            <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+              {showSecondary ? 'back to evenings' : 'and if your nights feel incomplete'}
+            </span>
+          </Button>
         </div>
 
         {/* Playlist */}
