@@ -59,11 +59,11 @@ const GallerySection = () => {
           <Button
             variant="ghost"
             onClick={() => setShowSecondary(!showSecondary)}
-            className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
+            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500"
           >
-            <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
-            <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
-              {showSecondary ? 'back to moments' : 'some more of me'}
+            <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+              {showSecondary ? 'back to moments' : 'more moments'}
             </span>
           </Button>
         </div>
@@ -80,10 +80,12 @@ const GallerySection = () => {
                 'aspect-square'
               }`}
             >
-              {/* Actual Image */}
+              {/* Actual Image with lazy loading */}
               <img 
                 src={item.src} 
                 alt={item.alt}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
