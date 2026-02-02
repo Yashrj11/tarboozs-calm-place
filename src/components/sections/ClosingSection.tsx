@@ -258,9 +258,9 @@ const ClosingSection = () => {
           {/* Falling stars, moons, and sparkles */}
           {fallingParticles.map(renderParticle)}
 
-          {/* Message card */}
+          {/* Message card - smaller on mobile to show effects */}
           <div
-            className="relative max-w-sm sm:max-w-md md:max-w-lg bg-gradient-to-br from-card via-card to-secondary/20 rounded-3xl sm:rounded-[2rem] p-8 sm:p-10 md:p-12 shadow-glow z-10 border border-primary/10"
+            className="relative max-w-[85vw] sm:max-w-md md:max-w-lg max-h-[70vh] overflow-y-auto bg-gradient-to-br from-card via-card to-secondary/20 rounded-2xl sm:rounded-[2rem] p-5 sm:p-10 md:p-12 shadow-glow z-10 border border-primary/10"
             style={{
               animation: 'messageCardFadeIn 800ms ease-out forwards',
             }}
@@ -285,19 +285,19 @@ const ClosingSection = () => {
             {/* Message content */}
             <div className="relative z-10 text-center">
               {/* Opening line */}
-              <p className="font-serif text-xl sm:text-2xl md:text-3xl text-primary mb-6 sm:mb-8 italic">
+              <p className="font-serif text-lg sm:text-2xl md:text-3xl text-primary mb-4 sm:mb-8 italic">
                 if today is yours —
               </p>
 
               {/* Decorative divider */}
-              <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
-                <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
+                <span className="w-6 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
                 <span className="text-blush/50 text-xs">✧</span>
-                <span className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                <span className="w-6 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               </div>
 
               {/* Main message */}
-              <div className="space-y-5 sm:space-y-6 font-sans text-base sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
+              <div className="space-y-3 sm:space-y-6 font-sans text-sm sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
                 <p>
                   drink the coffee while it's warm.
                 </p>
@@ -316,7 +316,7 @@ const ClosingSection = () => {
                   was never meant to replace completion.
                 </p>
 
-                <p className="pt-2 sm:pt-4 text-primary/80 font-serif italic text-lg sm:text-xl md:text-2xl">
+                <p className="pt-1 sm:pt-4 text-primary/80 font-serif italic text-base sm:text-xl md:text-2xl">
                   you don't owe the world performance.<br />
                   but you do owe yourself<br />
                   one honest finish.
@@ -324,7 +324,7 @@ const ClosingSection = () => {
               </div>
 
               {/* Closing decoration */}
-              <div className="mt-8 sm:mt-10 flex items-center justify-center gap-2">
+              <div className="mt-4 sm:mt-10 flex items-center justify-center gap-2">
                 <span className="text-primary/40 text-xs animate-twinkle">✦</span>
                 <span className="text-blush/50 text-sm animate-twinkle animation-delay-200">✧</span>
                 <span className="text-primary/40 text-xs animate-twinkle animation-delay-400">✦</span>

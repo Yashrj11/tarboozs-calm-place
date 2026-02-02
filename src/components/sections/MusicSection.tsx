@@ -112,7 +112,7 @@ const MusicSection = () => {
 
   return (
     <section className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-gradient-to-b from-background via-secondary/20 to-background">
-      <audio ref={audioRef} preload="metadata" />
+      <audio ref={audioRef} preload="none" />
       
       <div className="max-w-lg mx-auto w-full">
         <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-center text-foreground/80 mb-3 sm:mb-4">
@@ -127,11 +127,11 @@ const MusicSection = () => {
           <Button
             variant="ghost"
             onClick={() => setShowSecondary(!showSecondary)}
-            className="group px-4 py-2 h-auto rounded-full border border-border/30 hover:border-primary/40 hover:bg-accent/30 transition-all duration-500"
+            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500"
           >
-            <Sparkles className="w-4 h-4 mr-2 text-primary/60 group-hover:text-primary transition-colors" />
-            <span className="text-sm text-foreground/70 group-hover:text-foreground/90 transition-colors">
-              {showSecondary ? 'back to evenings' : 'if you miss me'}
+            <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+              {showSecondary ? 'back to evenings' : 'If your nights feel incomplete'}
             </span>
           </Button>
         </div>
@@ -161,12 +161,27 @@ const MusicSection = () => {
             </p>
           </div>
 
-          {/* Progress Bar */}
+          {/* Progress Bar - Seekable */}
           <div className="mb-5 sm:mb-6">
-            <div className="h-1 sm:h-1.5 bg-accent rounded-full overflow-hidden">
+            <div 
+              className="relative h-2 sm:h-2.5 bg-accent rounded-full overflow-hidden cursor-pointer group"
+              onClick={(e) => {
+                const audio = audioRef.current;
+                if (!audio || !duration) return;
+                const rect = e.currentTarget.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percentage = clickX / rect.width;
+                audio.currentTime = percentage * duration;
+              }}
+            >
               <div 
-                className="h-full bg-gradient-to-r from-primary to-lavender-light rounded-full transition-all duration-300"
+                className="h-full bg-gradient-to-r from-primary to-lavender-light rounded-full transition-all duration-150"
                 style={{ width: `${progress}%` }}
+              />
+              {/* Seek indicator */}
+              <div 
+                className="absolute top-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-primary rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ left: `calc(${progress}% - 6px)` }}
               />
             </div>
             <div className="flex justify-between text-[10px] sm:text-xs text-muted-foreground mt-1.5 sm:mt-2">
