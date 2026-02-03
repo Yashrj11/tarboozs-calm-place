@@ -212,12 +212,23 @@ const MusicSection = () => {
             </button>
           </div>
 
-          {/* Volume */}
+          {/* Volume - Functional */}
           <div className="flex items-center justify-center gap-2 sm:gap-3 mt-5 sm:mt-6">
             <Volume2 className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
-            <div className="w-20 sm:w-24 h-1 bg-accent rounded-full">
-              <div className="w-14 sm:w-16 h-full bg-primary/50 rounded-full" />
-            </div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              defaultValue="0.7"
+              onChange={(e) => {
+                const audio = audioRef.current;
+                if (audio) {
+                  audio.volume = parseFloat(e.target.value);
+                }
+              }}
+              className="w-20 sm:w-24 h-1.5 bg-accent rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-md [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:border-0"
+            />
           </div>
         </div>
 
