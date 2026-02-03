@@ -258,9 +258,9 @@ const ClosingSection = () => {
           {/* Falling stars, moons, and sparkles */}
           {fallingParticles.map(renderParticle)}
 
-          {/* Message card - smaller on mobile to show effects */}
+          {/* Message card - responsive sizing, no scrollbars */}
           <div
-            className="relative max-w-[85vw] sm:max-w-md md:max-w-lg max-h-[70vh] overflow-y-auto bg-gradient-to-br from-card via-card to-secondary/20 rounded-2xl sm:rounded-[2rem] p-5 sm:p-10 md:p-12 shadow-glow z-10 border border-primary/10"
+            className="relative w-[90vw] max-w-xs sm:max-w-md md:max-w-lg bg-gradient-to-br from-card via-card to-secondary/20 rounded-2xl sm:rounded-[2rem] p-4 sm:p-10 md:p-12 shadow-glow z-10 border border-primary/10"
             style={{
               animation: 'messageCardFadeIn 800ms ease-out forwards',
             }}
@@ -285,49 +285,41 @@ const ClosingSection = () => {
             {/* Message content */}
             <div className="relative z-10 text-center">
               {/* Opening line */}
-              <p className="font-serif text-lg sm:text-2xl md:text-3xl text-primary mb-4 sm:mb-8 italic">
+              <p className="font-serif text-base sm:text-2xl md:text-3xl text-primary mb-2 sm:mb-8 italic">
                 if today is yours —
               </p>
 
               {/* Decorative divider */}
-              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-8">
-                <span className="w-6 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-                <span className="text-blush/50 text-xs">✧</span>
-                <span className="w-6 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+              <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-8">
+                <span className="w-4 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                <span className="text-blush/50 text-[10px] sm:text-xs">✧</span>
+                <span className="w-4 sm:w-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
               </div>
 
               {/* Main message */}
-              <div className="space-y-3 sm:space-y-6 font-sans text-sm sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
-                <p>
-                  drink the coffee while it's warm.
-                </p>
+              <div className="space-y-2 sm:space-y-6 font-sans text-xs sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
+                <p>drink the coffee while it's warm.</p>
 
-                <p className="text-foreground/60">
-                  look at the moon without asking it for meaning.
-                </p>
+                <p className="text-foreground/60">look at the moon without asking it for meaning.</p>
 
                 <p>
-                  rest —<br />
-                  <span className="text-foreground/60">but don't stop just to stay comfortable.</span>
+                  rest — <span className="text-foreground/60">but don't stop just to stay comfortable.</span>
                 </p>
 
                 <p className="text-foreground/65">
-                  the calm you're guarding<br />
-                  was never meant to replace completion.
+                  the calm you're guarding was never meant to replace completion.
                 </p>
 
-                <p className="pt-1 sm:pt-4 text-primary/80 font-serif italic text-base sm:text-xl md:text-2xl">
-                  you don't owe the world performance.<br />
-                  but you do owe yourself<br />
-                  one honest finish.
+                <p className="pt-1 sm:pt-4 text-primary/80 font-serif italic text-sm sm:text-xl md:text-2xl">
+                  you don't owe the world performance. but you do owe yourself one honest finish.
                 </p>
               </div>
 
               {/* Closing decoration */}
-              <div className="mt-4 sm:mt-10 flex items-center justify-center gap-2">
-                <span className="text-primary/40 text-xs animate-twinkle">✦</span>
-                <span className="text-blush/50 text-sm animate-twinkle animation-delay-200">✧</span>
-                <span className="text-primary/40 text-xs animate-twinkle animation-delay-400">✦</span>
+              <div className="mt-3 sm:mt-10 flex items-center justify-center gap-2">
+                <span className="text-primary/40 text-[10px] sm:text-xs animate-twinkle">✦</span>
+                <span className="text-blush/50 text-xs sm:text-sm animate-twinkle animation-delay-200">✧</span>
+                <span className="text-primary/40 text-[10px] sm:text-xs animate-twinkle animation-delay-400">✦</span>
               </div>
             </div>
           </div>
