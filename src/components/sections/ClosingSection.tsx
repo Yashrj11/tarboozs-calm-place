@@ -183,9 +183,41 @@ const ClosingSection = () => {
           </div>
         </div>
 
+        {/* The moon message - gentle, space-giving */}
+        <div
+          className={`mt-12 sm:mt-16 md:mt-20 transition-all duration-1000 delay-900 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <div className="relative max-w-xs sm:max-w-sm mx-auto px-4">
+            {/* Subtle decorative element */}
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+              <span className="text-primary/25 text-[10px] animate-twinkle">✧</span>
+            </div>
+            
+            <div className="space-y-3 sm:space-y-4 font-serif text-[13px] sm:text-sm md:text-base text-foreground/50 leading-relaxed italic">
+              <p>I'm not your safe place.</p>
+              <p>Not your constant.</p>
+              <p className="text-foreground/40">And that's okay.</p>
+              <p className="pt-2">
+                I'll be the moon instead —
+                <br />
+                <span className="text-foreground/40">not asking to be noticed,</span>
+                <br />
+                just keeping its place.
+              </p>
+              <p className="text-foreground/40">
+                If a night feels quiet,
+                <br />
+                you'll know it's there.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Subtle footer */}
         <div
-          className={`mt-16 sm:mt-20 md:mt-24 transition-all duration-1000 delay-1000 ${
+          className={`mt-12 sm:mt-16 md:mt-20 transition-all duration-1000 delay-1200 ${
             isVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
