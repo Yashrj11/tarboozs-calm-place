@@ -22,7 +22,7 @@ const HeroSection = () => {
         </p>
 
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-4 sm:mb-6 animate-fade-in-up opacity-0 leading-tight" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-          Happy Birthday{' '}
+          Happy Birthday Riya{' '}
           <span className="inline-block animate-gentle-bounce animation-delay-1000">🌙</span>
         </h1>
 
