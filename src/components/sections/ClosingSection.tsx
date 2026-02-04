@@ -189,22 +189,50 @@ const ClosingSection = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="relative max-w-xs sm:max-w-sm mx-auto px-4">
-            {/* Subtle decorative element */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <span className="text-primary/25 text-[10px] animate-twinkle">✧</span>
+          <div className="relative max-w-xs sm:max-w-sm md:max-w-md mx-auto px-4">
+            {/* Decorative glow behind message */}
+            <div 
+              className="absolute -inset-6 sm:-inset-8 rounded-3xl opacity-40"
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(var(--lavender-light) / 0.15) 0%, transparent 70%)',
+              }}
+            />
+            
+            {/* Subtle decorative stars */}
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center gap-2">
+              <span className="text-primary/20 text-[8px] animate-twinkle">✦</span>
+              <span className="text-blush/25 text-[10px] animate-twinkle animation-delay-200">✧</span>
+              <span className="text-primary/20 text-[8px] animate-twinkle animation-delay-400">✦</span>
             </div>
             
-            <div className="space-y-3 sm:space-y-4 font-serif text-[13px] sm:text-sm md:text-base text-foreground/50 leading-relaxed italic">
-              <p>Happy birthday, Riya.</p>
-              <p>Wishing you a year full of peace</p>
-              <p className="text-foreground/40">and moments that feel like your own.</p>
-              <p className="pt-2">
-                And if you ever look up —
-                <br />
-                <span className="text-foreground/40">you'll understand why the moon still makes me smile.</span>
+            <div className="relative space-y-4 sm:space-y-5 text-center">
+              {/* Main greeting - highlighted */}
+              <p className="font-serif text-xl sm:text-2xl md:text-3xl text-primary italic">
+                Happy Birthday, Riya.
               </p>
-              <p className="text-foreground/60 pt-2">
+              
+              {/* Divider */}
+              <div className="w-12 h-px mx-auto bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+              
+              {/* Message body */}
+              <div className="space-y-3 font-serif text-sm sm:text-base md:text-lg text-foreground/60 leading-relaxed italic">
+                <p>
+                  Wishing you a year full of peace,
+                  <br />
+                  <span className="text-foreground/50">and moments that feel like your own.</span>
+                </p>
+                
+                <p className="pt-2 text-foreground/55">
+                  And if you ever look up—
+                  <br />
+                  <span className="text-foreground/70">you'll understand why the moon</span>
+                  <br />
+                  <span className="text-primary/80">still makes me smile.</span>
+                </p>
+              </div>
+              
+              {/* Signature - emphasized */}
+              <p className="pt-4 font-serif text-base sm:text-lg md:text-xl text-foreground/70 tracking-wide">
                 — Yash
               </p>
             </div>
