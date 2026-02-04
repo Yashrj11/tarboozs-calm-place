@@ -18,12 +18,11 @@ const HeroSection = () => {
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-2xl mx-auto">
         <p className="text-muted-foreground text-xs sm:text-sm md:text-base tracking-widest uppercase mb-6 sm:mb-8 animate-fade-in-up opacity-0" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
-          For someone who loves calm more than noise
+          A small birthday space, just for you.
         </p>
 
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground mb-4 sm:mb-6 animate-fade-in-up opacity-0 leading-tight" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-          Happy Birthday Riya{' '}
-          <span className="inline-block animate-gentle-bounce animation-delay-1000">🌙</span>
+          Happy Birthday Riya 🤍
         </h1>
 
         <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light animate-fade-in-up opacity-0 px-2" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>

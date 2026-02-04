@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
 const traits = [
-  "She loves mountains more than crowds.",
-  "Coffee when thoughts feel heavy.",
-  "Silence that speaks louder than words.",
-  "Stories, moonlight, long scrolling nights.",
-  "Learning — not to impress, but to grow.",
+  "She smiles most in the smallest, home-kind moments",
+  "Teasing is her quiet way of showing love",
+  "Her family is where her heart always returns",
+  "She dreams of mornings that begin with sunrise",
+  "Freedom, travel, and a life with no regrets",
+  "Building something big — in her own way",
 ];
 
 const IdentitySection = () => {
@@ -142,6 +143,20 @@ const IdentitySection = () => {
                 {trait}
               </p>
             ))}
+            
+            {/* Closing paragraph */}
+            <div
+              className={`mt-8 sm:mt-10 space-y-2 font-serif text-base sm:text-lg md:text-xl text-foreground/60 leading-relaxed transition-all duration-700 delay-500 ${
+                visibleLines.length === traits.length
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <p>She's always been someone who belongs to simple joys.</p>
+              <p className="text-foreground/50">Not the loud kind — the real kind.</p>
+              <p className="text-foreground/50">The kind that lives in warm cups, soft evenings,</p>
+              <p className="text-foreground/50">and the space to just be.</p>
+            </div>
           </div>
         </div>
       </div>
