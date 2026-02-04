@@ -196,20 +196,16 @@ const ClosingSection = () => {
             </div>
             
             <div className="space-y-3 sm:space-y-4 font-serif text-[13px] sm:text-sm md:text-base text-foreground/50 leading-relaxed italic">
-              <p>I'm not your safe place.</p>
-              <p>Not your constant.</p>
-              <p className="text-foreground/40">And that's okay.</p>
+              <p>Happy birthday, Riya.</p>
+              <p>Wishing you a year full of peace</p>
+              <p className="text-foreground/40">and moments that feel like your own.</p>
               <p className="pt-2">
-                I'll be the moon instead —
+                And if you ever look up —
                 <br />
-                <span className="text-foreground/40">not asking to be noticed,</span>
-                <br />
-                just keeping its place.
+                <span className="text-foreground/40">you'll understand why the moon still makes me smile.</span>
               </p>
-              <p className="text-foreground/40">
-                If a night feels quiet,
-                <br />
-                you'll know it's there.
+              <p className="text-foreground/60 pt-2">
+                — Yash
               </p>
             </div>
           </div>
@@ -318,7 +314,7 @@ const ClosingSection = () => {
             <div className="relative z-10 text-center">
               {/* Opening line */}
               <p className="font-serif text-base sm:text-2xl md:text-3xl text-primary mb-2 sm:mb-8 italic">
-                if today is yours —
+                If today is yours —
               </p>
 
               {/* Decorative divider */}
@@ -330,20 +326,22 @@ const ClosingSection = () => {
 
               {/* Main message */}
               <div className="space-y-2 sm:space-y-6 font-sans text-xs sm:text-lg md:text-xl text-foreground/75 leading-relaxed">
-                <p>drink the coffee while it's warm.</p>
+                <p>I hope the world feels gentle to you.</p>
 
-                <p className="text-foreground/60">look at the moon without asking it for meaning.</p>
+                <p className="text-foreground/60">The way mountains stay quiet.</p>
 
-                <p>
-                  rest — <span className="text-foreground/60">but don't stop just to stay comfortable.</span>
-                </p>
+                <p className="text-foreground/60">The way evenings don't demand anything.</p>
 
-                <p className="text-foreground/65">
-                  the calm you're guarding was never meant to replace completion.
+                <p className="pt-1 sm:pt-4 text-foreground/70">
+                  And maybe…
+                  <br />
+                  <span className="text-foreground/60">begin something you've been waiting for.</span>
                 </p>
 
                 <p className="pt-1 sm:pt-4 text-primary/80 font-serif italic text-sm sm:text-xl md:text-2xl">
-                  you don't owe the world performance. but you do owe yourself one honest finish.
+                  Just a small reminder…
+                  <br />
+                  you matter more than you ever have to prove.
                 </p>
               </div>
 
