@@ -71,29 +71,43 @@ const ShayariSection = () => {
     setTouchStart(null);
   };
 
+  // Keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') handlePrev();
+    if (e.key === 'ArrowRight') handleNext();
+  };
+
   return (
-    <section className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-gradient-to-b from-background to-secondary/30">
-      <div className="max-w-4xl mx-auto w-full">
-        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-center text-foreground/80 mb-10 sm:mb-16">
-          <span className="inline-block animate-float-slow">✨</span>
+    <section 
+      className="min-h-[100dvh] py-20 sm:py-24 md:py-28 px-4 sm:px-6 flex items-center bg-gradient-to-b from-background to-secondary/30"
+      aria-label="Poetry carousel"
+    >
+      <div className="max-w-4xl mx-auto w-full" role="region" aria-roledescription="carousel">
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-center text-foreground/90 mb-10 sm:mb-16">
+          <span className="inline-block animate-float-slow" aria-hidden="true">✨</span>
           <span className="mx-3">Quiet Strength</span>
-          <span className="inline-block animate-float-slow animation-delay-400">✨</span>
+          <span className="inline-block animate-float-slow animation-delay-400" aria-hidden="true">✨</span>
         </h2>
 
         <div 
-          className="relative"
+          className="relative focus:outline-none"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`Quote ${currentIndex + 1} of ${quotes.length}`}
         >
           {/* Card */}
           <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card-gradient shadow-card backdrop-blur-sm border border-border/50 p-6 sm:p-8 md:p-12 lg:p-16 min-h-[250px] sm:min-h-[300px] flex items-center justify-center">
             {/* Decorative corners */}
-            <div className="absolute top-4 left-4 text-primary/20 text-lg sm:text-xl">❝</div>
-            <div className="absolute bottom-4 right-4 text-primary/20 text-lg sm:text-xl">❞</div>
+            <div className="absolute top-4 left-4 text-primary/30 text-lg sm:text-xl" aria-hidden="true">❝</div>
+            <div className="absolute bottom-4 right-4 text-primary/30 text-lg sm:text-xl" aria-hidden="true">❞</div>
             
             {/* Decorative glow */}
-            <div className="absolute top-0 right-0 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 rounded-full bg-lavender-light/20 blur-3xl animate-pulse-soft" />
-            <div className="absolute bottom-0 left-0 w-24 sm:w-36 md:w-48 h-24 sm:h-36 md:h-48 rounded-full bg-blush/20 blur-3xl animate-pulse-soft animation-delay-1000" />
+            <div className="absolute top-0 right-0 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 rounded-full bg-lavender-light/20 blur-3xl animate-pulse-soft" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-24 sm:w-36 md:w-48 h-24 sm:h-36 md:h-48 rounded-full bg-blush/20 blur-3xl animate-pulse-soft animation-delay-1000" aria-hidden="true" />
 
             {/* Quote */}
             <div
@@ -101,7 +115,7 @@ const ShayariSection = () => {
                 isAnimating ? 'opacity-0 scale-95 translate-y-2' : 'opacity-100 scale-100 translate-y-0'
               }`}
             >
-              <p className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground leading-relaxed whitespace-pre-line">
+              <p className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground/90 leading-relaxed whitespace-pre-line">
                 {quotes[currentIndex].text}
               </p>
             </div>
@@ -111,14 +125,14 @@ const ShayariSection = () => {
           <div className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8">
             <button
               onClick={handlePrev}
-              className="p-2.5 sm:p-3 rounded-full bg-card hover:bg-accent transition-all duration-300 shadow-soft touch-target active:scale-95"
+              className="p-2.5 sm:p-3 rounded-full bg-card hover:bg-accent transition-all duration-300 shadow-soft touch-target active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               aria-label="Previous quote"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/70" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/80" />
             </button>
 
             {/* Dots */}
-            <div className="flex gap-1.5 sm:gap-2">
+            <div className="flex gap-1.5 sm:gap-2" role="tablist" aria-label="Quote navigation">
               {quotes.map((_, index) => (
                 <button
                   key={index}
@@ -129,11 +143,13 @@ const ShayariSection = () => {
                       setTimeout(() => setIsAnimating(false), 500);
                     }
                   }}
+                  role="tab"
+                  aria-selected={index === currentIndex}
                   className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 touch-target ${
                     index === currentIndex
                       ? 'w-4 sm:w-6 bg-primary'
-                      : 'w-1.5 sm:w-2 bg-primary/30 hover:bg-primary/50'
-                  }`}
+                      : 'w-1.5 sm:w-2 bg-primary/40 hover:bg-primary/60'
+                  } focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
                   aria-label={`Go to quote ${index + 1}`}
                 />
               ))}
@@ -141,15 +157,15 @@ const ShayariSection = () => {
 
             <button
               onClick={handleNext}
-              className="p-2.5 sm:p-3 rounded-full bg-card hover:bg-accent transition-all duration-300 shadow-soft touch-target active:scale-95"
+              className="p-2.5 sm:p-3 rounded-full bg-card hover:bg-accent transition-all duration-300 shadow-soft touch-target active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               aria-label="Next quote"
             >
-              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/70" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/80" />
             </button>
           </div>
 
           {/* Swipe hint for mobile */}
-          <p className="text-center text-muted-foreground/50 text-xs mt-4 sm:hidden">
+          <p className="text-center text-foreground/30 text-[10px] sm:text-xs mt-4 sm:mt-6 md:hidden animate-breathe">
             swipe to navigate
           </p>
         </div>

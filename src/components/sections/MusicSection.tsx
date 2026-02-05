@@ -111,14 +111,17 @@ const MusicSection = () => {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <section className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-gradient-to-b from-background via-secondary/20 to-background">
+    <section 
+      className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-gradient-to-b from-background via-secondary/20 to-background"
+      aria-label="Music player"
+    >
       <audio ref={audioRef} preload="none" />
       
       <div className="max-w-lg mx-auto w-full">
-        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-center text-foreground/80 mb-3 sm:mb-4">
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-center text-foreground/90 mb-3 sm:mb-4">
           Only If You Want
         </h2>
-        <p className="text-center text-muted-foreground text-sm sm:text-base mb-4 sm:mb-5">
+        <p className="text-center text-foreground/60 text-sm sm:text-base mb-4 sm:mb-5">
           For slow evenings
         </p>
 
@@ -126,7 +129,7 @@ const MusicSection = () => {
         {/* Music Player */}
         <div className="bg-card-gradient rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-10 shadow-card border border-border/30 backdrop-blur-sm">
           {/* Album Art / Moon */}
-          <div className="flex justify-center mb-6 sm:mb-8">
+          <div className="flex justify-center mb-6 sm:mb-8" role="img" aria-label="Album artwork">
             <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-lavender-light to-blush flex items-center justify-center shadow-glow">
               <MoonIcon size={45} className="sm:w-[55px] sm:h-[55px] md:w-[60px] md:h-[60px]" glowing={isPlaying} />
               {isPlaying && (
@@ -237,7 +240,8 @@ const MusicSection = () => {
           <Button
             variant="ghost"
             onClick={() => setShowSecondary(!showSecondary)}
-            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500"
+            aria-pressed={showSecondary}
+            className="group px-5 py-2.5 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
             <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
@@ -247,23 +251,24 @@ const MusicSection = () => {
         </div>
 
         {/* Playlist */}
-        <div className="mt-6 sm:mt-8 space-y-1.5 sm:space-y-2">
+        <nav className="mt-6 sm:mt-8 space-y-1.5 sm:space-y-2" aria-label="Track listing">
           {currentPlaylist.map((track, index) => (
             <button
               key={track.title}
               onClick={() => handleTrackClick(index)}
+              aria-current={index === currentTrack ? 'true' : undefined}
               className={`w-full flex items-center justify-between p-3 sm:p-4 rounded-lg sm:rounded-xl transition-all duration-300 touch-target active:scale-[0.98] ${
                 index === currentTrack
                   ? 'bg-accent/70 shadow-soft'
                   : 'hover:bg-accent/40'
-              }`}
+              } focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset`}
             >
               <div className="flex items-center gap-2.5 sm:gap-3">
                 <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${
                   index === currentTrack ? 'bg-primary/20' : 'bg-accent'
-                }`}>
+                }`} aria-hidden="true">
                   {index === currentTrack && isPlaying ? (
-                    <div className="flex gap-0.5">
+                    <div className="flex gap-0.5" aria-label="Now playing">
                       <span className="w-0.5 h-2 sm:h-3 bg-primary rounded-full animate-pulse" />
                       <span className="w-0.5 h-1.5 sm:h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.1s' }} />
                       <span className="w-0.5 h-2.5 sm:h-4 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
@@ -279,7 +284,7 @@ const MusicSection = () => {
               </div>
             </button>
           ))}
-        </div>
+        </nav>
       </div>
     </section>
   );
