@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useCallback } from 'react';
 import MoonIcon from '../MoonIcon';
 
 interface FallingParticle {
@@ -38,6 +39,7 @@ const ClosingSection = () => {
 
   const handleOpenMessage = () => {
     setIsMessageOpen(true);
+    document.body.style.overflow = 'hidden';
     
     // Generate falling stars, moons, and sparkles - more intense!
     const particles: FallingParticle[] = [];
@@ -71,7 +73,22 @@ const ClosingSection = () => {
   const handleCloseMessage = () => {
     setIsMessageOpen(false);
     setFallingParticles([]);
+    document.body.style.overflow = '';
   };
+
+  // Handle keyboard close
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape' && isMessageOpen) {
+      handleCloseMessage();
+    }
+  }, [isMessageOpen]);
+
+  useEffect(() => {
+    if (isMessageOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isMessageOpen, handleKeyDown]);
 
   const renderParticle = (particle: FallingParticle) => {
     if (particle.type === 'moon') {
@@ -132,9 +149,10 @@ const ClosingSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-20 md:py-24 bg-gradient-to-b from-background via-secondary/10 to-background"
+      aria-label="Closing message"
+      className="min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-6 py-20 sm:py-24 md:py-28 bg-gradient-to-b from-background via-secondary/10 to-background"
     >
-      <div className="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto text-center">
+      <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto text-center">
         {/* Moon animation */}
         <div
           className={`mb-10 sm:mb-12 md:mb-16 transition-all duration-1000 ${
@@ -163,7 +181,7 @@ const ClosingSection = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <p className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground/80 leading-relaxed px-2">
+          <p className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground/90 leading-relaxed px-2">
             You don't owe the world constant proof.
             <br />
             <span className="text-primary">Just keep becoming — in your own time.</span>
@@ -273,7 +291,8 @@ const ClosingSection = () => {
             
             <button
               onClick={handleOpenMessage}
-              className="relative px-6 py-3 sm:px-8 sm:py-4 rounded-full border border-primary/20 bg-card/50 backdrop-blur-sm group-hover:border-primary/40 group-hover:bg-card/70 transition-all duration-500 shadow-soft group-hover:shadow-glow"
+              className="relative px-6 py-3 sm:px-8 sm:py-4 rounded-full border border-primary/20 bg-card/50 backdrop-blur-sm group-hover:border-primary/40 group-hover:bg-card/70 transition-all duration-500 shadow-soft group-hover:shadow-glow focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              aria-haspopup="dialog"
             >
               {/* Inner glow on hover */}
               <div 
@@ -301,6 +320,9 @@ const ClosingSection = () => {
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-hidden"
           onClick={handleCloseMessage}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Birthday message"
         >
           {/* Warm dimming overlay with gradient */}
           <div 
@@ -321,6 +343,7 @@ const ClosingSection = () => {
               animation: 'messageCardFadeIn 800ms ease-out forwards',
             }}
             onClick={(e) => e.stopPropagation()}
+            tabIndex={-1}
           >
             {/* Outer glow */}
             <div 
@@ -387,7 +410,7 @@ const ClosingSection = () => {
             className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] sm:text-xs text-foreground/30 tracking-widest"
             style={{ animation: 'fadeIn 1s ease-in 1.5s forwards', opacity: 0 }}
           >
-            tap anywhere to close
+            tap anywhere or press Escape to close
           </p>
         </div>
       )}

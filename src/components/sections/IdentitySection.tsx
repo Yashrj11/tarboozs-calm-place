@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-// First phase - what the world sees
+// What the world sees - the observable
 const observedTraits = [
   "She loves mountains more than crowds.",
   "Coffee when thoughts feel heavy.",
@@ -10,7 +11,7 @@ const observedTraits = [
   "Learning — not to impress, but to grow.",
 ];
 
-// Second phase - who she really is
+// Who she really is - the inner
 const innerTraits = [
   "Teasing is her quiet way of showing love.",
   "She trusts the universe and its quiet timing.",
@@ -21,39 +22,25 @@ const innerTraits = [
 ];
 
 const IdentitySection = () => {
-  const [phase, setPhase] = useState(0); // 0: nothing, 1: first traits, 2: transition, 3: second traits
-  const [visibleFirst, setVisibleFirst] = useState<number[]>([]);
-  const [visibleSecond, setVisibleSecond] = useState<number[]>([]);
+  const [showInner, setShowInner] = useState(false);
+  const [visibleTraits, setVisibleTraits] = useState<number[]>([]);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const currentTraits = showInner ? innerTraits : observedTraits;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setPhase(1);
-            
-            // Reveal first phase traits
-            observedTraits.forEach((_, index) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            // Reveal traits one by one
+            currentTraits.forEach((_, index) => {
               setTimeout(() => {
-                setVisibleFirst((prev) => [...prev, index]);
-              }, index * 350);
+                setVisibleTraits((prev) => [...prev, index]);
+              }, index * 300);
             });
-
-            // After first phase, show transition
-            setTimeout(() => {
-              setPhase(2);
-            }, observedTraits.length * 350 + 600);
-
-            // Then reveal second phase traits
-            setTimeout(() => {
-              setPhase(3);
-              innerTraits.forEach((_, index) => {
-                setTimeout(() => {
-                  setVisibleSecond((prev) => [...prev, index]);
-                }, index * 350);
-              });
-            }, observedTraits.length * 350 + 1400);
           }
         });
       },
@@ -65,20 +52,40 @@ const IdentitySection = () => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [hasAnimated, currentTraits]);
+
+  // Handle toggle - animate new traits
+  const handleToggle = () => {
+    setVisibleTraits([]);
+    setShowInner(!showInner);
+    
+    // Animate new traits after toggle
+    const newTraits = !showInner ? innerTraits : observedTraits;
+    newTraits.forEach((_, index) => {
+      setTimeout(() => {
+        setVisibleTraits((prev) => [...prev, index]);
+      }, index * 250);
+    });
+  };
 
   return (
     <section
       ref={sectionRef}
-      className="min-h-[100dvh] py-16 sm:py-20 md:py-24 px-4 sm:px-6 flex items-center bg-background"
+      aria-label="About her personality"
+      className="min-h-[100dvh] py-20 sm:py-24 md:py-28 px-4 sm:px-6 flex items-center bg-background"
     >
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-24 items-center">
           {/* Illustration */}
           <div className="relative flex justify-center order-2 lg:order-1">
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px]">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-secondary/30 blur-3xl animate-pulse-soft" />
-              <svg viewBox="0 0 400 400" className="w-full h-full relative z-10">
+              <svg 
+                viewBox="0 0 400 400" 
+                className="w-full h-full relative z-10"
+                role="img"
+                aria-label="Decorative illustration with mountains, coffee, and moon"
+              >
                 <path
                   d="M50,300 L130,180 L170,240 L200,150 L250,220 L350,300 Z"
                   fill="hsl(var(--primary))"
@@ -146,55 +153,45 @@ const IdentitySection = () => {
             </div>
           </div>
 
-          {/* Text */}
-          <div className="space-y-3 sm:space-y-4 order-1 lg:order-2">
-            {/* Phase 1: Observable traits */}
-            {observedTraits.map((trait, index) => (
+          {/* Text Content */}
+          <div className="space-y-4 sm:space-y-5 md:space-y-6 order-1 lg:order-2">
+            {/* Traits list */}
+            {currentTraits.map((trait, index) => (
               <p
-                key={index}
-                className={`font-serif text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/80 leading-relaxed transition-all duration-700 ${
-                  visibleFirst.includes(index)
+                key={`${showInner ? 'inner' : 'observed'}-${index}`}
+                className={`font-serif text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-[2rem] text-foreground/85 leading-relaxed transition-all duration-700 motion-reduce:transition-none ${
+                  visibleTraits.includes(index)
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-4'
                 }`}
               >
-                <span className="text-primary/50 mr-2 text-xs sm:text-sm">✦</span>
+                <span className="text-primary/60 mr-2 sm:mr-3 text-sm sm:text-base" aria-hidden="true">✦</span>
                 {trait}
               </p>
             ))}
 
-            {/* Transition divider - breathing pause */}
+            {/* Toggle Button - similar to music/gallery */}
             <div 
-              className={`py-4 sm:py-6 flex items-center justify-center transition-all duration-1000 ${
-                phase >= 2 ? 'opacity-100' : 'opacity-0'
+              className={`pt-8 sm:pt-10 md:pt-12 flex justify-start transition-all duration-1000 ${
+                visibleTraits.length >= currentTraits.length ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-8 sm:w-12 h-px bg-gradient-to-r from-transparent to-primary/30" />
-                <Heart 
-                  className={`w-3 h-3 sm:w-4 sm:h-4 text-primary/40 transition-all duration-1000 ${
-                    phase >= 2 ? 'animate-pulse-soft scale-100' : 'scale-0'
-                  }`} 
-                  fill="currentColor"
-                />
-                <div className="w-8 sm:w-12 h-px bg-gradient-to-l from-transparent to-primary/30" />
-              </div>
-            </div>
-
-            {/* Phase 2: Inner traits - who she really is */}
-            {innerTraits.map((trait, index) => (
-              <p
-                key={`inner-${index}`}
-                className={`font-serif text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/90 leading-relaxed transition-all duration-700 ${
-                  visibleSecond.includes(index)
-                    ? 'opacity-100 translate-y-0'
-                    : 'opacity-0 translate-y-4'
-                }`}
+              <Button
+                variant="ghost"
+                onClick={handleToggle}
+                aria-pressed={showInner}
+                className="group px-5 sm:px-6 py-2.5 sm:py-3 h-auto rounded-full border-2 border-primary/40 bg-primary/5 hover:border-primary/60 hover:bg-primary/10 shadow-soft hover:shadow-glow transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <span className="text-primary/60 mr-2 text-xs sm:text-sm">✦</span>
-                {trait}
-              </p>
-            ))}
+                {showInner ? (
+                  <Heart className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" fill="currentColor" />
+                ) : (
+                  <Sparkles className="w-4 h-4 mr-2 text-primary group-hover:text-primary transition-colors" />
+                )}
+                <span className="text-sm sm:text-base font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                  {showInner ? 'what the world sees' : 'but who she really is'}
+                </span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
